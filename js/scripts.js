@@ -1,7 +1,8 @@
 const app = {};
 app.form = document.querySelector('form');
-app.convertedValue = document.querySelector('#convertedValue');
+app.convertedValueP = document.querySelector('#convertedValue');
 app.swatch = document.querySelector('.swatch');
+app.copyButton = document.querySelector('#copyButton');
 
 app.componentToHex = (c) => {
   let hex = c.toString(16);
@@ -13,17 +14,18 @@ app.rgbToHex = (r, g, b) => {
 }
 
 app.displayConvertedValue = (value) => {
-  app.convertedValue.innerHTML = value;
+  app.convertedValueP.innerHTML = value;
   app.swatch.style.backgroundColor = value;
+  app.copyButton.setAttribute('uk-tooltip', `copy ${value}`);
 }
 
 // app.hexToRGB = () => {
 
 // }
 
-// app.copyToClipboard = () => {
-
-// }
+app.copyToClipboard = (convertedValue) => {
+  navigator.clipboard.writeText(convertedValue);
+}
 
 app.init = () => {
   app.form.reset();
@@ -34,10 +36,13 @@ app.init = () => {
     let red = parseInt(document.querySelector('#red').value);
     let green = parseInt(document.querySelector('#green').value);
     let blue = parseInt(document.querySelector('#blue').value);
+    let convertedValue = app.rgbToHex(red, green, blue);
 
-    console.log('hello');
+    app.displayConvertedValue(convertedValue);
+  });
 
-    app.displayConvertedValue(app.rgbToHex(red, green, blue));
+  app.copyButton.addEventListener('click', () => {
+    app.copyToClipboard(convertedValue.innerHTML);
   });
 };
 
