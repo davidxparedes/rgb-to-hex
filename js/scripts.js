@@ -2,7 +2,7 @@ const app = {};
 app.form = document.querySelector('form');
 app.convertedValueP = document.querySelector('#convertedValue');
 app.swatch = document.querySelector('.swatch');
-app.copyButton = document.querySelector('#copyButton');
+app.copyBtn = document.querySelector('#copyBtn');
 
 app.componentToHex = (c) => {
   let hex = c.toString(16);
@@ -16,12 +16,8 @@ app.rgbToHex = (r, g, b) => {
 app.displayConvertedValue = (value) => {
   app.convertedValueP.innerHTML = value;
   app.swatch.style.backgroundColor = value;
-  app.copyButton.setAttribute('uk-tooltip', `copy ${value}`);
+  app.copyBtn.setAttribute('uk-tooltip', `copy ${value}`);
 }
-
-// app.hexToRGB = () => {
-
-// }
 
 app.copyToClipboard = (convertedValue) => {
   navigator.clipboard.writeText(convertedValue);
@@ -41,7 +37,7 @@ app.init = () => {
     app.displayConvertedValue(convertedValue);
   });
 
-  app.copyButton.addEventListener('click', () => {
+  app.copyBtn.addEventListener('click', () => {
     app.copyToClipboard(convertedValue.innerHTML);
   });
 };
